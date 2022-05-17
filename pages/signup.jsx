@@ -6,7 +6,6 @@ import GlobalSpinnerContextProvider from "../context/globalSpinnerContext";
 // import { GlobalSpinnerContext } from "../context/globalSpinnerContext";
 import UserForm from "../components/utility/userForm";
 import PopupDialogContextProvider from "../context/popupDialogContext";
-// import { ToastContainer, toast } from "react-toastify";
 
 export default function Signup() {
   return (

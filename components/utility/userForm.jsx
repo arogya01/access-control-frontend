@@ -1,11 +1,12 @@
+import { useRouter } from "next/router";
 import { useContext, useReducer, useEffect } from "react";
 import { GlobalSpinnerContext } from "../../context/globalSpinnerContext";
 import FormBtn from "./formBtn";
-// import { ToastContainer, toast } from "react-toastify";
 
 export default function UserForm() {
   const [isGlobalSpinnerOn, setGlobalSpinner] =
     useContext(GlobalSpinnerContext);
+  const router = useRouter();
   const initialState = {
     name: "arogya",
     email: "",
@@ -38,19 +39,26 @@ export default function UserForm() {
     setGlobalSpinner(true);
     event.preventDefault();
     console.log("submitted the user details");
-    const res = await fetch("https://access30.herokuapp.com/signup", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify(formState),
-    });
 
-    const result = await res.json();
-    console.log(result);
-    toast(result);
-    setGlobalSpinner(false);
+    try {
+      const res = await fetch("https://access30.herokuapp.com/signup", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(formState),
+      });
+
+      const result = await res.json();
+      console.log(result);
+      setGlobalSpinner(false);
+      router.push("/login");
+    } catch (err) {
+      if (err) {
+        console.log(err);
+      }
+    }
   };
 
   return (

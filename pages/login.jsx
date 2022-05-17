@@ -1,17 +1,19 @@
 import { useReducer, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
-import Layout from "../components/Layout";
 import { useAuth } from "../context/authProvider";
 import { GlobalSpinnerContext } from "../context/globalSpinnerContext";
 import Spinner from "../components/utility/Spinner";
-// import { PopupDialogContext } from "../context/popupDialogContext";
+import { ToastContainer, toast } from "react-toastify";
+import { PopupDialogContext } from "../context/popupDialogContext";
 // import PopupDialog from "../components/utility/popupDialog";
+import Toaster from "../components/utility/toaster";
 
 export default function Login() {
   const router = useRouter();
   const [userAuth, setUserAuth] = useAuth();
   const [globalSpinner, setGlobalSpinner] = useContext(GlobalSpinnerContext);
-  // const [isPopupDialogOn, setPopupDialog] = useContext(PopupDialogContext);
+  const [isPopupDialogOn, setPopupDialog, popupMessage, setPopupMessage] =
+    useContext(PopupDialogContext);
 
   const initialState = {
     email: "",
@@ -37,7 +39,9 @@ export default function Login() {
   const [formState, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    console.log(formState);
+    if (userAuth) {
+      router.push("/home");
+    }
 
     return setGlobalSpinner(false);
   }, [formState, setGlobalSpinner]);
@@ -46,6 +50,7 @@ export default function Login() {
     setGlobalSpinner(true);
     event.preventDefault();
     console.log(formState);
+
     try {
       const res = await fetch("https://access30.herokuapp.com/login", {
         headers: {
@@ -58,15 +63,19 @@ export default function Login() {
 
       const userDetails = await res.json();
       console.log(userDetails);
-      // setUserAuth(userDetails);
-      // setPopupDialog(true);
       setGlobalSpinner(false);
       localStorage.setItem("userInfo", JSON.stringify(userDetails));
+      setUserAuth(true);
       router.push("/home");
+      // setUserAuth(userDetails);
+      // setPopupDialog(true);
     } catch (err) {
       if (!err) {
         console.log("no error response");
       }
+      console.log(err);
+      setPopupMessage(err.message);
+      setPopupDialog(true);
       console.log("error message:", err);
       // setPopupDialog(true);
     }
@@ -74,6 +83,7 @@ export default function Login() {
 
   return (
     <div className="w-full h-screen m-auto flex flex-row items-center justify-center ">
+      <Toaster />
       <form
         onSubmit={(event) => {
           handleUserLogin(event);
