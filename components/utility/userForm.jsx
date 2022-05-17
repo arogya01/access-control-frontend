@@ -1,6 +1,7 @@
 import { useContext, useReducer, useEffect } from "react";
 import { GlobalSpinnerContext } from "../../context/globalSpinnerContext";
 import FormBtn from "./formBtn";
+// import { ToastContainer, toast } from "react-toastify";
 
 export default function UserForm() {
   const [isGlobalSpinnerOn, setGlobalSpinner] =
@@ -34,9 +35,10 @@ export default function UserForm() {
   }, [formState]);
 
   const registerUser = async (event) => {
+    setGlobalSpinner(true);
     event.preventDefault();
-
-    const res = await fetch("http://localhost:3001/signup", {
+    console.log("submitted the user details");
+    const res = await fetch("https://access30.herokuapp.com/signup", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -47,70 +49,73 @@ export default function UserForm() {
 
     const result = await res.json();
     console.log(result);
+    toast(result);
     setGlobalSpinner(false);
   };
 
   return (
-    <div className="z-2 bg-gray-100 ">
-      <form
-        onSubmit={(event) => {
-          registerUser(event);
-        }}
-        className="flex flex-row flex-wrap self-center mx-auto border-2 p-6 w-full"
-      >
-        <div className="mb-4 w-full">
-          <label htmlFor="full_name" className="block font-bold">
-            Full Name
-          </label>
-          <input
-            type="text"
-            id="full_name"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block border-2   w-full  rounded-lg p-2.5"
-            placeholder="arogya"
-            value={formState.name}
-            name="name"
-            autoComplete="name"
-            onChange={(event) => handleTextChange(event)}
-            required
-          />
-        </div>
-        <div className="mb-4 w-full">
-          <label htmlFor="email" className="block font-bold">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block border-2  w-full rounded-lg p-2.5"
-            value={formState.email}
-            onChange={(event) => handleTextChange(event)}
-            placeholder="arogya@gmail.com"
-            required
-          />
-          <span className="text-red-600 text-xs hidden">
-            Email already exists!!!!
-          </span>
-        </div>
-        <div className="mb-4 w-full">
-          <label htmlFor="password" className="block font-bold">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block border-2  w-full  rounded-lg p-2.5"
-            value={formState.password}
-            onChange={(event) => handleTextChange(event)}
-            placeholder="arogya12"
-            required
-          />
-        </div>
-        <div className="mt-4 w-full grid place-content-center">
-          <FormBtn />
-        </div>
-      </form>
-    </div>
+    <>
+      <div className="z-2 bg-gray-100 ">
+        <form
+          onSubmit={(event) => {
+            registerUser(event);
+          }}
+          className="flex flex-row flex-wrap self-center mx-auto border-2 p-6 w-full"
+        >
+          <div className="mb-4 w-full">
+            <label htmlFor="full_name" className="block font-bold">
+              Full Name
+            </label>
+            <input
+              type="text"
+              id="full_name"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block border-2   w-full  rounded-lg p-2.5"
+              placeholder="arogya"
+              value={formState.name}
+              name="name"
+              autoComplete="name"
+              onChange={(event) => handleTextChange(event)}
+              required
+            />
+          </div>
+          <div className="mb-4 w-full">
+            <label htmlFor="email" className="block font-bold">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block border-2  w-full rounded-lg p-2.5"
+              value={formState.email}
+              onChange={(event) => handleTextChange(event)}
+              placeholder="arogya@gmail.com"
+              required
+            />
+            <span className="text-red-600 text-xs hidden">
+              Email already exists!!!!
+            </span>
+          </div>
+          <div className="mb-4 w-full">
+            <label htmlFor="password" className="block font-bold">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block border-2  w-full  rounded-lg p-2.5"
+              value={formState.password}
+              onChange={(event) => handleTextChange(event)}
+              placeholder="arogya12"
+              required
+            />
+          </div>
+          <div className="mt-4 w-full grid place-content-center">
+            <FormBtn />
+          </div>
+        </form>
+      </div>
+    </>
   );
 }

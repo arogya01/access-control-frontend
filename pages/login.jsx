@@ -47,7 +47,7 @@ export default function Login() {
     event.preventDefault();
     console.log(formState);
     try {
-      const res = await fetch("http://localhost:3001/login", {
+      const res = await fetch("https://access30.herokuapp.com/login", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -60,8 +60,9 @@ export default function Login() {
       console.log(userDetails);
       // setUserAuth(userDetails);
       // setPopupDialog(true);
+      setGlobalSpinner(false);
       localStorage.setItem("userInfo", JSON.stringify(userDetails));
-      router.push("/");
+      router.push("/home");
     } catch (err) {
       if (!err) {
         console.log("no error response");
