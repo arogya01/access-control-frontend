@@ -7,7 +7,7 @@ import { useAuth } from "../context/authProvider";
 import { useRouter } from "next/router";
 export default function Navbar({ isMenuOpen, setMenu }) {
   const router = useRouter();
-  const [userAuth, setUserAuth] = useAuth();
+  const [userAuth, setUserAuth, persist, setPersist] = useAuth();
 
   useEffect(() => {
     console.log(userAuth);
@@ -92,13 +92,15 @@ export default function Navbar({ isMenuOpen, setMenu }) {
           </button>
 
           <div className="hidden md:block md:flex md:justify-around md:items-center md:p-4 ">
-            <NavbarBtn btnName="dashboard" btnLink="/home" />
+            <NavbarBtn btnName="dashboard" btnLink="/dashboard" />
             <NavbarBtn btnName="My Profile" btnLink="/my-profile" />
             <NavbarBtn
               btnName={userAuth ? "Logout" : "Login"}
               btnLink="/login"
               onClick={(e) => {
                 localStorage.removeItem("userInfo");
+                setUserAuth(false);
+                setPersist({});
                 router.push("/");
               }}
             />

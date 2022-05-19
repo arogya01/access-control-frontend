@@ -10,7 +10,7 @@ import Toaster from "../components/utility/toaster";
 
 export default function Login() {
   const router = useRouter();
-  const [userAuth, setUserAuth] = useAuth();
+  const [userAuth, setUserAuth, persist, setPersist] = useAuth();
   const [globalSpinner, setGlobalSpinner] = useContext(GlobalSpinnerContext);
   const [isPopupDialogOn, setPopupDialog, popupMessage, setPopupMessage] =
     useContext(PopupDialogContext);
@@ -40,7 +40,7 @@ export default function Login() {
 
   useEffect(() => {
     if (userAuth) {
-      router.push("/home");
+      router.push("/dashboard");
     }
 
     return setGlobalSpinner(false);
@@ -52,7 +52,7 @@ export default function Login() {
     console.log(formState);
 
     try {
-      const res = await fetch("https://access30.herokuapp.com/login", {
+      const res = await fetch("http://localhost:5500/login", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -64,9 +64,10 @@ export default function Login() {
       const userDetails = await res.json();
       console.log(userDetails);
       setGlobalSpinner(false);
+      setPersist({ ...userDetails });
       localStorage.setItem("userInfo", JSON.stringify(userDetails));
       setUserAuth(true);
-      router.push("/home");
+      router.push("/dashboard");
       // setUserAuth(userDetails);
       // setPopupDialog(true);
     } catch (err) {
