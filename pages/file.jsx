@@ -5,7 +5,12 @@ export default function File() {
   return (
     <div className="flex flex-col items-center p-8">
       <h1 className="text-2xl font-bold">Patient Report</h1>
-      <Chart data={userData} dataKey="Active User" grid title="Patient Graph" />
+      <Chart
+        data={userData}
+        dataKey="ActiveUser"
+        grid="true"
+        title="Patient Graph"
+      />
       <p className="font-sm px-16">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tenetur
         numquam velit rem nesciunt officia ex vitae cumque, quaerat consequuntur

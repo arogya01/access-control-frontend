@@ -17,10 +17,10 @@ export const Chart = ({ title, data, dataKey, grid }) => {
         <LineChart
           data={data}
           margin={{
-            top: 5,
-            right: 40,
+            top: 0,
+            right: 0,
             left: 30,
-            bottom: 5,
+            bottom: 0,
           }}
         >
           <XAxis datakey="name" stroke="#e29578" />
