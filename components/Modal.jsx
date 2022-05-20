@@ -213,21 +213,24 @@ export function ModalForm({ layer, setFormActive, layerNumber }) {
               console.log(treated, exp, role);
               try {
                 console.log(persist.accessToken);
-                const res = await fetch(`http://localhost:5500/${layer}`, {
-                  headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                    Authorization: authtoken,
-                  },
-                  method: "POST",
-                  body: JSON.stringify({
-                    email: userinfo.email,
-                    treated: treated,
-                    exp: exp,
-                    role: role,
-                    criminalRecord: criminalRecord,
-                  }),
-                });
+                const res = await fetch(
+                  `https://access30.herokuapp.com//${layer}`,
+                  {
+                    headers: {
+                      Accept: "application/json",
+                      "Content-Type": "application/json",
+                      Authorization: authtoken,
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                      email: userinfo.email,
+                      treated: treated,
+                      exp: exp,
+                      role: role,
+                      criminalRecord: criminalRecord,
+                    }),
+                  }
+                );
 
                 const user = await res.json();
                 console.log(user);
