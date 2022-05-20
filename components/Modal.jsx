@@ -28,7 +28,7 @@ export function ModalForm({ layer, setFormActive, layerNumber }) {
   return (
     <div className="fixed w-3/4 h-8/9 border-2 top-8 rounded-lg border-black z-5 left-1/2 -translate-x-2/4 bg-[#f0f1f6]">
       <div
-        className=" flex w-full justify-end ml-auto p-4 w-24px h-24px "
+        className="cursor-pointer flex w-full justify-end ml-auto p-4 w-24px h-24px "
         onClick={() => setFormActive(false)}
       >
         <Image src="/Cross.svg" width={24} height={24} alt="something" />
@@ -209,6 +209,14 @@ export function ModalForm({ layer, setFormActive, layerNumber }) {
               const userinfo = JSON.parse(localStorage.getItem("userInfo"));
               const authtoken = userinfo.accessToken;
               console.log(userinfo.email);
+              const bod = JSON.stringify({
+                email: userinfo.email,
+                treated: treated,
+                exp: exp,
+                role: role,
+                criminalRecord: criminalRecord,
+              });
+              console.log(bod);
               setGlobalSpinner(true);
               console.log(treated, exp, role);
               try {
