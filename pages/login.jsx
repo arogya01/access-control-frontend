@@ -52,7 +52,7 @@ export default function Login() {
     console.log(formState);
 
     try {
-      const res = await fetch("http://localhost:5500/login", {
+      const res = await fetch("https://access30.herokuapp.com/login", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

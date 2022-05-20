@@ -41,7 +41,7 @@ export default function UserForm() {
     console.log("submitted the user details");
 
     try {
-      const res = await fetch("http://https://localhost:5500/signup", {
+      const res = await fetch("https://access30.herokuapp.com/signup", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

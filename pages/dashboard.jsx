@@ -9,6 +9,8 @@ export default function Dashboard() {
   const [userAuth, setUserAuth, persist, setPersist] = useAuth();
   const router = useRouter();
   const [isFormActive, setFormActive] = useState(false);
+  const [layer, setLayer] = useState("");
+  const [layernumber, setLayerNumber] = useState("");
   // useEffect(() => {
   //   if (!userAuth) {
   //     router.push("/");
@@ -17,7 +19,13 @@ export default function Dashboard() {
 
   return userAuth ? (
     <>
-      {isFormActive && <ModalForm />}
+      {isFormActive && (
+        <ModalForm
+          setFormActive={setFormActive}
+          layer={layer}
+          layerNumber={layernumber}
+        />
+      )}
       <Navbar />
       <h1 className="flex flex-row justify-center p-12 font-bold text-2xl">
         Welcome to Acess Control, {persist.name}
@@ -25,12 +33,28 @@ export default function Dashboard() {
       <div className="flex flex-row justify-center items-center h-screen ">
         <Card
           content="Layer1"
-          onClick={() => {
+          onClick={(event) => {
+            setLayer("layer-1");
             setFormActive(true);
+            setLayerNumber(1);
           }}
         />
-        <Card content="Layer2" />
-        <Card content="Layer3" />
+        <Card
+          content="Layer2"
+          onClick={(event) => {
+            setLayer("layer-2");
+            setFormActive(true);
+            setLayerNumber(2);
+          }}
+        />
+        <Card
+          content="Layer3"
+          onClick={(event) => {
+            setLayer("layer-3");
+            setFormActive(true);
+            setLayerNumber(3);
+          }}
+        />
       </div>
     </>
   ) : null;
