@@ -214,7 +214,7 @@ export function ModalForm({ layer, setFormActive, layerNumber }) {
               try {
                 console.log(persist.accessToken);
                 const res = await fetch(
-                  `https://access30.herokuapp.com//${layer}`,
+                  `https://access30.herokuapp.com/${layer}`,
                   {
                     headers: {
                       Accept: "application/json",
