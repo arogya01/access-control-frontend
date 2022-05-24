@@ -78,17 +78,17 @@ export function ModalForm({ layer, setFormActive, layerNumber }) {
                   id="role-option-1"
                   type="radio"
                   name="role"
-                  checked={role === "doctor"}
+                  checked={role === "medical-practitioner"}
                   onChange={() => {
-                    setRole("doctor");
+                    setRole("medical-practitioner");
                   }}
                   class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
                 />
                 <label
-                  for="role-option-1"
+                  htmlFor="role-option-1"
                   class="block ml-2 text-sm font-medium"
                 >
-                  Doctor
+                  Medical Practitioner
                 </label>
               </div>
               <div class="flex items-center mr-4">
@@ -103,7 +103,7 @@ export function ModalForm({ layer, setFormActive, layerNumber }) {
                   class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
                 />
                 <label
-                  for="role-option-1"
+                  htmlFor="role-option-2"
                   class="block ml-2 text-sm font-medium"
                 >
                   Nurse
@@ -113,17 +113,51 @@ export function ModalForm({ layer, setFormActive, layerNumber }) {
                 <input
                   id="role-option-3"
                   type="radio"
-                  checked={role === "receptionist"}
+                  checked={role === "special-practitioner"}
                   onChange={() => {
-                    setRole("receptionist");
+                    setRole("special-practitioner");
                   }}
                   class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
                 />
                 <label
-                  for="role-option-1"
+                  htmlFor="role-option-3"
                   class="block ml-2 text-sm font-medium"
                 >
-                  Receptionist
+                  Special Practitioner
+                </label>
+              </div>
+              <div class="flex items-center mr-4">
+                <input
+                  id="role-option-4"
+                  type="radio"
+                  checked={role === "healthcare-researcher"}
+                  onChange={() => {
+                    setRole("healthcare-researcher");
+                  }}
+                  class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                />
+                <label
+                  htmlFor="role-option-4"
+                  class="block ml-2 text-sm font-medium"
+                >
+                  Healthcare Researcher
+                </label>
+              </div>
+              <div class="flex items-center mr-4">
+                <input
+                  id="role-option-5"
+                  type="radio"
+                  checked={role === "nurse-manager"}
+                  onChange={() => {
+                    setRole("nurse-manager");
+                  }}
+                  class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                />
+                <label
+                  htmlFor="role-option-5"
+                  class="block ml-2 text-sm font-medium"
+                >
+                  Nurse Manager
                 </label>
               </div>
             </fieldset>
@@ -157,7 +191,7 @@ export function ModalForm({ layer, setFormActive, layerNumber }) {
               class="block w-full p-2 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
-          <div className="flex flex-col my-4">
+          {/* <div className="flex flex-col my-4">
             <p className="font-bold text-lg mb-4">
               Do you've any past criminal records?{" "}
             </p>
@@ -199,13 +233,13 @@ export function ModalForm({ layer, setFormActive, layerNumber }) {
                 </label>
               </div>
             </fieldset>
-          </div>
+          </div> */}
           <button
             type="submit"
             class="flex flex-row justify-center items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             onClick={async (event) => {
-              event.target.innerHTML =
-                "Hold up, Checking Access By Running Fuzzy Logic";
+              document.querySelector("#btnp").innerHTML =
+                "Hold Up,Running Fuzzy Logic!!";
               const userinfo = JSON.parse(localStorage.getItem("userInfo"));
               const authtoken = userinfo.accessToken;
               console.log(userinfo.email);
@@ -271,7 +305,10 @@ export function ModalForm({ layer, setFormActive, layerNumber }) {
               }
             }}
           >
-            <p className="mr-4"> Check up Access </p>
+            <p className="mr-4" id="btnp">
+              {" "}
+              Check up Access{" "}
+            </p>
             <span className="ml-4">
               {" "}
               <Spinner />

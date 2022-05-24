@@ -93,7 +93,7 @@ export default function Navbar({ isMenuOpen, setMenu }) {
 
           <div className="hidden md:block md:flex md:justify-around md:items-center md:p-4 ">
             <NavbarBtn btnName="dashboard" btnLink="/dashboard" />
-            <NavbarBtn btnName="My Profile" btnLink="/my-profile" />
+            <NavbarBtn btnName="My Profile" btnLink="/profile" />
             <NavbarBtn
               btnName={userAuth ? "Logout" : "Login"}
               btnLink="/login"

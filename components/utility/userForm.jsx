@@ -13,6 +13,10 @@ export default function UserForm() {
     password: "",
   };
 
+  useEffect(() => {
+    setGlobalSpinner(false);
+  }, []);
+
   function reducer(state, action) {
     switch (action.type) {
       case "addUser":

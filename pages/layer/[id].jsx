@@ -12,17 +12,22 @@ export default function Layer() {
       <div className="flex flex-col justify-center my-16 border-2 border-black rounded-lg">
         <div className="my-12 border-b-2 border-black">
           <Link href="/file">
-            <span className="font-bold text-xl cursor-pointer ">File 1</span>
+            <span className="font-bold text-xxl cursor-pointer ">EMR</span>
           </Link>
         </div>
         <div className="my-12 border-b-2 border-black">
           <Link href="/file">
-            <span className="font-bold text-xl cursor-pointer ">File 2</span>
+            <span className="font-bold text-xxl cursor-pointer ">DMR</span>
+          </Link>
+        </div>
+        <div className="my-12 border-b-2 border-black">
+          <Link href="/file">
+            <span className="font-bold text-xxl cursor-pointer ">PMH</span>
           </Link>
         </div>
         <div className="mt-8 ">
           <Link href="/file">
-            <span className="font-bold text-xl cursor-pointer ">File 3</span>
+            <span className="font-bold text-xxl cursor-pointer ">DOR</span>
           </Link>
         </div>
       </div>
