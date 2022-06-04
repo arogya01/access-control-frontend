@@ -1,4 +1,4 @@
-import { useReducer, useEffect, useContext } from "react";
+import { useReducer, useEffect, useContext, useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "../context/authProvider";
 import { GlobalSpinnerContext } from "../context/globalSpinnerContext";
@@ -14,6 +14,7 @@ export default function Login() {
   const [globalSpinner, setGlobalSpinner] = useContext(GlobalSpinnerContext);
   const [isPopupDialogOn, setPopupDialog, popupMessage, setPopupMessage] =
     useContext(PopupDialogContext);
+  const [errMessage, setErrorMessage] = useState("");
 
   const initialState = {
     email: "",
@@ -47,6 +48,7 @@ export default function Login() {
   }, [formState, setGlobalSpinner]);
 
   const handleUserLogin = async (event) => {
+    setErrorMessage("");
     setGlobalSpinner(true);
     event.preventDefault();
     console.log(formState);
@@ -63,11 +65,20 @@ export default function Login() {
 
       const userDetails = await res.json();
       console.log(userDetails);
+
+      if (userDetails && Object.keys(userDetails).length === 0) {
+        setErrorMessage("Invalid Credentials!!");
+      } else if (userDetails.error) {
+        setErrorMessage(userDetails.error);
+      } else {
+        setPersist({ ...userDetails });
+        localStorage.setItem("userInfo", JSON.stringify(userDetails));
+        setUserAuth(true);
+        router.push("/dashboard");
+      }
+
       setGlobalSpinner(false);
-      setPersist({ ...userDetails });
-      localStorage.setItem("userInfo", JSON.stringify(userDetails));
-      setUserAuth(true);
-      router.push("/dashboard");
+
       // setUserAuth(userDetails);
       // setPopupDialog(true);
     } catch (err) {
@@ -75,6 +86,7 @@ export default function Login() {
         console.log("no error response");
       }
       console.log(err);
+      setErrorMessage(err.message);
       setPopupMessage(err.message);
       setPopupDialog(true);
       console.log("error message:", err);
@@ -125,6 +137,9 @@ export default function Login() {
             required
           />
         </div>
+        <span className="flex px-2.5 text-red-700 font-bold text-sm">
+          {errMessage}
+        </span>
         <div className="mt-4 w-full grid place-content-center">
           <button
             type="submit"
